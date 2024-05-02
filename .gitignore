@@ -7,7 +7,9 @@
 *.blg
 *.toc
 *.fdb_latexmk
-
+/models
+/data
+/notebooks/tsdae*/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
