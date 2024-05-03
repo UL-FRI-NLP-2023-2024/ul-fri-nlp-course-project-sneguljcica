@@ -12,9 +12,11 @@ torch.manual_seed(seed)
 df = pd.read_csv('~/data/training_phrases.csv', header=None)
 sentences = df.iloc[:, 0].tolist()
 
-# Tokenize labeled data using a pre-trained tokenizer
-tokenizer = AutoTokenizer.from_pretrained("bert-base-multilingual-uncased")
-tokenized_data = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt")
+# Function to tokenize data using a pre-trained tokenizer
+def tokenize_data(model_name, sentences):
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    tokenized_data = tokenizer(sentences, padding=True, truncation=True, return_tensors="pt")
+    return tokenized_data
 
 # Define a custom Dataset class for labeled data
 class SlovenianDataset(Dataset):
@@ -28,34 +30,44 @@ class SlovenianDataset(Dataset):
     def __len__(self):
         return len(self.encodings["input_ids"])
 
-labeled_dataset = SlovenianDataset(tokenized_data)
-labeled_dataloader = DataLoader(labeled_dataset, batch_size=16, shuffle=True)
+# Function to train model and calculate loss
+def train_model_and_calculate_loss(model_name, tokenized_data):
+    print("Training model: ", model_name)
+    
+    # Load training dataset
+    labeled_dataset = SlovenianDataset(tokenized_data)
+    labeled_dataloader = DataLoader(labeled_dataset, batch_size=16, shuffle=True)
 
-# Load a pre-trained model
-model_name = "bert-base-multilingual-uncased"
-model = AutoModelForMaskedLM.from_pretrained(model_name)
+    # Load a pre-trained model
+    model = AutoModelForMaskedLM.from_pretrained(model_name)
 
-# Define Trainer
-training_args = TrainingArguments(
-    output_dir="./results",
-    num_train_epochs=3,
-    per_device_train_batch_size=16,
-    warmup_steps=500,
-    logging_dir="./logs",
-    logging_steps=100,
-)
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=labeled_dataset,
-    compute_metrics=None,
-)
+    # Define Trainer
+    training_args = TrainingArguments(
+        output_dir="./results",
+        num_train_epochs=3,
+        per_device_train_batch_size=16,
+        warmup_steps=500,
+        logging_dir="./logs",
+        logging_steps=100,
+    )
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=labeled_dataloader,
+        compute_metrics=None,
+    )
 
-# Train the model using GPL
-trainer.train()
+    # Train the model
+    trainer.train()
 
-# Save the fine-tuned model
-output_dir = "fine_tuned_model/"
-os.makedirs(output_dir, exist_ok=True)
-model.save_pretrained(output_dir)
-tokenizer.save_pretrained(output_dir)
+    # Calculate the final loss
+    final_loss = trainer.evaluate()["loss"]
+    
+    return final_loss
+
+# Iterate through 3 pretrained models
+pretrained_models = ["bert-base-multilingual-uncased", "all-MiniLM-L12-v2", "hate_speech_slo"]
+for model_name in pretrained_models:
+    tokenized_data = tokenize_data(model_name, sentences)
+    loss = train_model_and_calculate_loss(model_name, tokenized_data)
+    print("Final loss for", model_name, ":", loss)
