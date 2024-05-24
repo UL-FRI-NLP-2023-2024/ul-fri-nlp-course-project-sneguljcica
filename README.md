@@ -28,7 +28,7 @@ conda env create -f environment.yml
 conda activate nlp
 ```
 
-### Fitting the models
+### Training the models
 
 To train a specific model, run the scripts from `src/slurm_scripts` on SLURM cluster. Example:
 
