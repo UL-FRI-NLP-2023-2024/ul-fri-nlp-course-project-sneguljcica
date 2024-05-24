@@ -177,23 +177,32 @@ To evaluate the performance of the adapted models, we trained a simple logistic 
 The classifier was trained on a subset of 38 000 sentences from mannualy annotated SentiNews dataset, with an 80-20 train-test split.
 Figure \ref{fig:tsdae_performance} shows F1 scores and log loss for the base and TSDAE adapted models.
 
-\begin{table}[h]
+\begin{figure}[h]
     \centering
-    \begin{tabular}{l|cc}
-    \hline
-    \textbf{Model} & \textbf{F1 Score} & \textbf{Log Loss} \\
-    \hline
-    bert-base-multilingual-uncased       & 0.6062 & 0.7559 \\
-    tsdae-bert-base-\\ 
-    multilingual-uncased & 0.6424 & 0.7027 \\
-    hate-speech-slo                      & 0.6062 & 0.7559 \\
-    tsdae-hate-speech-slo                & 0.6443 & 0.7114 \\
-    all-MiniLM-L12-v2                    & 0.5612 & 0.8199 \\
-    tsdae-all-MiniLM-L12-v2              & 0.6313 & 0.7313 \\
-    \end{tabular}
+    \includegraphics[width=1\linewidth]{tsdae_base.pdf}
     \caption{Performance metrics of base and TSDAE models.}
-    \label{table:tsdae_performance}
-    \end{table}
+    \label{fig:tsdae_performance}
+\end{figure}
+
+
+
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{l|cc}
+%     \hline
+%     \textbf{Model} & \textbf{F1 Score} & \textbf{Log Loss} \\
+%     \hline
+%     bert-base-multilingual-uncased       & 0.6062 & 0.7559 \\
+%     tsdae-bert-base-\\ 
+%     multilingual-uncased & 0.6424 & 0.7027 \\
+%     hate-speech-slo                      & 0.6062 & 0.7559 \\
+%     tsdae-hate-speech-slo                & 0.6443 & 0.7114 \\
+%     all-MiniLM-L12-v2                    & 0.5612 & 0.8199 \\
+%     tsdae-all-MiniLM-L12-v2              & 0.6313 & 0.7313 \\
+%     \end{tabular}
+%     \caption{Performance metrics of base and TSDAE models.}
+%     \label{table:tsdae_performance}
+%     \end{table}
     
 
 \begin{table}[h]
