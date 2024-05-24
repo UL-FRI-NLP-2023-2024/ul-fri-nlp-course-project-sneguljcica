@@ -1,0 +1,21 @@
+name: nlp
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipykernel
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - python
+  - seaborn
+  - scikit-learn
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - ca-certificates
+  - certifi
+  - openssl
+  - sentence-transformers

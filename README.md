@@ -28,7 +28,7 @@ python eval_tsdae_models.py
 
 ## Results
 
-The results of the experiments are stored in the `reports` directory. F1 scores and log loss of the models:
+The results of the experiments are stored in the `reports` directory. The figure below shows the F1 scores and log loss of the models:
 
 ![TSDAE results](./reports/fig/tsdae_base.png)
 ![GPL results](.reports/fig/gpl_base.png)
