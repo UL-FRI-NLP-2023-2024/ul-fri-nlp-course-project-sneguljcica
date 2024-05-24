@@ -16,19 +16,22 @@ print("Available GPU Memory:", torch.cuda.memory_reserved(0) / 1e9, "GB")
 print("Allocated GPU Memory:", torch.cuda.memory_allocated(0) / 1e9, "GB")
 print("Free (cached) GPU Memory:", torch.cuda.memory_reserved(0) - torch.cuda.memory_allocated(0) / 1e9, "GB")
 
-df = pd.read_csv('~/data/Annotation_sentence-level_utf8.txt', sep='\t')
-df = df.dropna()
-
-paragrah = df.iloc[:, [3, 12]].to_numpy()
 
 basePath = "/d/hpc/home/ak3883/models/"
 names = ["bert-base-multilingual-uncased", "all-MiniLM-L12-v2", "hate_speech_slo"]
 
-df = pd.read_csv('~/data/training_phrases.csv', header=None)
+df = pd.read_csv("/home/aljaz/FAKS/ul-fri-nlp-course-project-sneguljcica/data/processed/phrases.csv")
+# df = pd.read_csv('~/data/training_phrases.csv', header=None)
+print(df)
+
 sentences = df.iloc[:, 0].to_numpy()
+print(sentences)
+print(type(sentences))
+print(type(sentences[0]))
+
 
 train_data = DenoisingAutoEncoderDataset(sentences)
-train_dataloader = DataLoader(train_data, batch_size=16, shuffle=True, drop_last=True)
+train_dataloader = DataLoader(train_data, batch_size=16, shuffle=True, drop_last=True, num_workers=4)
 
 for modelName in names:
     torch.cuda.empty_cache() 
@@ -46,7 +49,7 @@ for modelName in names:
     train_loss = losses.DenoisingAutoEncoderLoss(model,decoder_name_or_path=modelPath ,tie_encoder_decoder=False)
 
     num_epochs = 1
-
+    torch.cuda.memory_summary()
     print('Training the model')
     model.fit(
         train_objectives=[(train_dataloader, train_loss)],
