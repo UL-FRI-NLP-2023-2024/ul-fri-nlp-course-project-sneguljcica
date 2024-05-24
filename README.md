@@ -30,9 +30,10 @@ conda activate nlp
 
 ### Reproducing the results
 
-To reproduce the results, you need to run the following scripts while you have the `nlp` conda environment activated. Models can be found on [drive](https://unilj-my.sharepoint.com/personal/mm4195_student_uni-lj_si/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmm4195%5Fstudent%5Funi%2Dlj%5Fsi%2FDocuments%2Fmodels&ga=1) and should be placed in the `models` directory. Move to the `src/python_scripts` directory and run the following scripts:
+To reproduce the results, you need to run the following scripts while you have the `nlp` conda environment activated. Models can be found on [drive](https://unilj-my.sharepoint.com/personal/mm4195_student_uni-lj_si/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmm4195%5Fstudent%5Funi%2Dlj%5Fsi%2FDocuments%2Fmodels&ga=1) and should be placed in the `models` directory. Move to the `src/python_scripts` directory and run the following script:
 
 ```
+cd src/python_scripts
 python evaluate_models.py
 ```
 
