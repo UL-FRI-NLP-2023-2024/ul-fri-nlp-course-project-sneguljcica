@@ -30,5 +30,5 @@ python eval_tsdae_models.py
 
 The results of the experiments are stored in the `reports` directory. F1 scores and log loss of the models:
 
-![TSDAE results](https://github.com/UL-FRI-NLP-2023-2024/ul-fri-nlp-course-project-sneguljcica/tree/main/reports/fig/tsdae_base.pdf)
-![GPL results](https://github.com/UL-FRI-NLP-2023-2024/ul-fri-nlp-course-project-sneguljcica/tree/main/reports/fig/gpl_base.pdf)
+![TSDAE results](./reports/fig/tsdae_base.png)
+![GPL results](.reports/fig/gpl_base.png)
