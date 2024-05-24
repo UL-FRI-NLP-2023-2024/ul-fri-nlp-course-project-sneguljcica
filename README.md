@@ -15,6 +15,20 @@ cd ul-fri-nlp-course-project-sneguljcica
 
 conda env create -f environment.yml
 conda activate nlp
-
 ```
 
+## Reproducing the results
+
+To reproduce the results, you need to run the following scripts while you have the `nlp` conda environment activated.
+
+```
+python eval_gpl_models.py
+python eval_tsdae_models.py
+```
+
+## Results
+
+The results of the experiments are stored in the `reports` directory. F1 scores and log loss of the models:
+
+![TSDAE results](reports/fig/tsdae_base.pdf "Results of TSDAE models")
+![GPL results](reports/fig/gpl_base.pdf "Results of GPL models")
